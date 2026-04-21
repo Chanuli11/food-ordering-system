@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ijse.foodsystem.entity.User;
 import com.ijse.foodsystem.repository.UserRepository;
 
+/**
+ * UserController handles user management operations.
+ * Accessible by ADMIN role only.
+ */
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -20,13 +24,19 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    // Get all users (Admin only)
+    /**
+     * Returns all registered users.
+     * GET /api/user
+     */
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok(userRepository.findAll());
     }
 
-    // Get user by ID
+    /**
+     * Returns a specific user by ID.
+     * GET /api/user/{id}
+     */
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         User user = userRepository.findById(id)
@@ -34,7 +44,10 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    // Delete user
+    /**
+     * Deletes a user by ID.
+     * DELETE /api/user/{id}
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);

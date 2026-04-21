@@ -13,6 +13,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Category entity represents a food category (e.g. Pizza, Burgers).
+ * One category can have many food items.
+ */
 @Entity
 @Table(name = "categories")
 @Data
@@ -24,8 +28,10 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Name of the category
     private String name;
 
+    // One category has many food items
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<FoodItem> foodItems;
 }

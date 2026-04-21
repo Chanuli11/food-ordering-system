@@ -11,6 +11,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * CartItem entity represents a single food item inside a cart.
+ * It links a Cart with a FoodItem and stores the quantity.
+ */
 @Entity
 @Table(name = "cart_items")
 @Data
@@ -22,12 +26,15 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Number of units of this food item
     private Integer quantity;
 
+    // Each cart item belongs to one cart
     @ManyToOne
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
+    // Each cart item refers to one food item
     @ManyToOne
     @JoinColumn(name = "food_item_id")
     private FoodItem foodItem;

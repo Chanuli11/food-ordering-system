@@ -15,6 +15,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Cart entity represents a shopping cart for a user.
+ * Each user has one cart containing multiple cart items.
+ */
 @Entity
 @Table(name = "carts")
 @Data
@@ -26,10 +30,12 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Each cart belongs to one user
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    // Cart can have multiple items
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartItem> cartItems;
 }

@@ -12,6 +12,10 @@ import com.ijse.foodsystem.dto.LoginRequest;
 import com.ijse.foodsystem.dto.RegisterRequest;
 import com.ijse.foodsystem.service.AuthService;
 
+/**
+ * AuthController handles user registration and login requests.
+ * Public endpoints - no authentication required.
+ */
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -19,11 +23,19 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    /**
+     * Registers a new user with their own password.
+     * POST /api/auth/register
+     */
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
         return ResponseEntity.ok(authService.register(request));
     }
 
+    /**
+     * Authenticates a user and returns a JWT token.
+     * POST /api/auth/login
+     */
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok(authService.login(request));

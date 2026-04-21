@@ -12,6 +12,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * User entity represents a system user.
+ * Roles: ADMIN (manages food/categories) or CUSTOMER (places orders).
+ */
 @Entity
 @Table(name = "users")
 @Data
@@ -23,17 +27,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Full name of the user
     private String name;
 
+    // Email is unique and used for login
     @Column(unique = true, nullable = false)
     private String email;
 
+    // Password is stored as BCrypt encoded hash
     @Column(nullable = false)
     private String password;
 
+    // Role determines access level
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    // Available roles in the system
     public enum Role {
         ADMIN, CUSTOMER
     }

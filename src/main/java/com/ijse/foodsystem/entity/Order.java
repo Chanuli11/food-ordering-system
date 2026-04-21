@@ -18,6 +18,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Order entity represents a customer's food order.
+ * An order contains multiple order items and has a status.
+ */
 @Entity
 @Table(name = "orders")
 @Data
@@ -29,19 +33,24 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Current status of the order
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    // Available order statuses
     public enum Status {
         PLACED, PREPARING, DELIVERED, CANCELLED
     }
 
+    // Date and time when order was created
     private LocalDateTime createdAt;
 
+    // Each order belongs to one user
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    // One order has many order items
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 }
