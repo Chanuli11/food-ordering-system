@@ -1,5 +1,7 @@
 package com.ijse.foodsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,19 +9,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * OrderItem entity represents a single food item inside an order.
- * It stores the quantity and price at the time of ordering.
  */
 @Entity
 @Table(name = "order_items")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class OrderItem {
 
     @Id
@@ -32,7 +27,8 @@ public class OrderItem {
     // Price at the time of ordering
     private Double price;
 
-    // Each order item belongs to one order
+    // JsonIgnore prevents infinite loop
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
@@ -41,4 +37,20 @@ public class OrderItem {
     @ManyToOne
     @JoinColumn(name = "food_item_id")
     private FoodItem foodItem;
+
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Integer getQuantity() { return quantity; }
+    public void setQuantity(Integer quantity) { this.quantity = quantity; }
+
+    public Double getPrice() { return price; }
+    public void setPrice(Double price) { this.price = price; }
+
+    public Order getOrder() { return order; }
+    public void setOrder(Order order) { this.order = order; }
+
+    public FoodItem getFoodItem() { return foodItem; }
+    public void setFoodItem(FoodItem foodItem) { this.foodItem = foodItem; }
 }

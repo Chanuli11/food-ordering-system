@@ -1,5 +1,7 @@
 package com.ijse.foodsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,19 +9,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * CartItem entity represents a single food item inside a cart.
- * It links a Cart with a FoodItem and stores the quantity.
  */
 @Entity
 @Table(name = "cart_items")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class CartItem {
 
     @Id
@@ -29,7 +24,8 @@ public class CartItem {
     // Number of units of this food item
     private Integer quantity;
 
-    // Each cart item belongs to one cart
+    // JsonIgnore prevents infinite loop
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cart_id")
     private Cart cart;
@@ -38,4 +34,17 @@ public class CartItem {
     @ManyToOne
     @JoinColumn(name = "food_item_id")
     private FoodItem foodItem;
+
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Integer getQuantity() { return quantity; }
+    public void setQuantity(Integer quantity) { this.quantity = quantity; }
+
+    public Cart getCart() { return cart; }
+    public void setCart(Cart cart) { this.cart = cart; }
+
+    public FoodItem getFoodItem() { return foodItem; }
+    public void setFoodItem(FoodItem foodItem) { this.foodItem = foodItem; }
 }

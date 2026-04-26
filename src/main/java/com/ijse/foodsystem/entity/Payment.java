@@ -11,9 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * Payment entity represents a payment made for an order.
@@ -21,9 +18,6 @@ import lombok.NoArgsConstructor;
  */
 @Entity
 @Table(name = "payments")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Payment {
 
     @Id
@@ -49,4 +43,20 @@ public class Payment {
     @OneToOne
     @JoinColumn(name = "order_id")
     private Order order;
+
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Status getStatus() { return status; }
+    public void setStatus(Status status) { this.status = status; }
+
+    public Double getAmount() { return amount; }
+    public void setAmount(Double amount) { this.amount = amount; }
+
+    public LocalDateTime getPaidAt() { return paidAt; }
+    public void setPaidAt(LocalDateTime paidAt) { this.paidAt = paidAt; }
+
+    public Order getOrder() { return order; }
+    public void setOrder(Order order) { this.order = order; }
 }
